@@ -10,7 +10,7 @@ import random
 
 # This is the cropping of images
 
-
+# small
 def create_and_delete_folders():
     train_folder = "TRAIN_FOLDER"
     val_folder = "VAL_FOLDER"
