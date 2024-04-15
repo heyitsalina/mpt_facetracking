@@ -8,8 +8,9 @@ from PIL import Image
 
 # NOTE: This will be the live execution of your pipeline
 
+
 def live(args):
-    # TODO: 
+    # TODO:
     #   Load the model checkpoint from a previous training session (check code in train.py)
     #   Initialize the face recognition cascade again (reuse code if possible)
     #   Also, create a video capture device to retrieve live footage from the webcam.

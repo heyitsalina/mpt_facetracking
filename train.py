@@ -14,6 +14,7 @@ from transforms import TrainingTransform, ValidationTransform
 
 BATCH_SIZE = 8
 
+
 def train(args):
     # Setup the ImageFolder Dataset
     trainset = torchvision.datasets.ImageFolder(
@@ -57,8 +58,8 @@ def train(args):
                 optim.zero_grad()
 
                 out = net(batch)
-                assert(out.shape[0] == BATCH_SIZE)
-                assert(out.shape[1] == nClasses)
+                assert out.shape[0] == BATCH_SIZE
+                assert out.shape[1] == nClasses
 
                 bacc.update(out, labels)
 
