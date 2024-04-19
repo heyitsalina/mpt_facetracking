@@ -44,10 +44,22 @@ def clean_files():
             os.remove(file_path)  
             print(f"Deleted: {file_path}")  
 
+def iterate():
+    #test function to show images from folder, it works 
+    #task: crop images from examples and move them to train folder
+    for root, dirs, files in os.walk("examples"):
+            for file in files:
+                file_path = os.path.join(root, file)  
+                img = cv.imread(file_path)
+                img = cv.copyMakeBorder(img, 100, 100, 100, 100, cv.BORDER_REFLECT)
+                cv.imshow("image", img) 
+                cv.waitKey(0)
 
-create_delete_folders()
-clean_files()
+#create_delete_folders()
+#clean_files()
 
+iterate()
+ 
 def crop(args):
     # TODO: Crop the full-frame images into individual crops
     #   Create the TRAIN_FOLDER and VAL_FOLDER is they are missing (os.mkdir)
