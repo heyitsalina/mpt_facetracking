@@ -18,9 +18,9 @@ class Net(nn.Module):
         nn.Conv2d(16, 32, kernel_size=(5,5), padding="same"), relu, pool,
         nn.Conv2d(32, 64, kernel_size=(5,5), padding="same"), relu,
         nn.Conv2d(64, 128, kernel_size=(5,5), padding="same"), relu, pool,
-        nn.Conv2d(128, 256, kernel_size=(5,5), padding="same"), relu
-        nn.Conv2d(256, 512, kernel_size=(5,5), padding="same")
-        nn.Flatten(), nn.Linear())
+        nn.Conv2d(128, 256, kernel_size=(5,5), padding="same"), relu,
+        nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"),
+        nn.Flatten(), nn.Linear(placeholder, nClasses))
         
 
     def forward(self, x):
@@ -28,4 +28,8 @@ class Net(nn.Module):
         # Implement forward pass
         #  x is a BATCH_SIZEx3x256x256 Tensor
         #  return value must be a BATCH_SIZExN_CLASSES Tensor
-        return (x @ self.weight) + self.bias
+        return self.net(x)
+    
+
+if __name__ == "__main__":
+    net = Net(nClasses=3)
