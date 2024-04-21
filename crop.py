@@ -11,15 +11,9 @@ import random
 # This is the cropping of images
 
 # small
-def create_and_delete_folders():
+def create_delete_folders():
     train_folder = "TRAIN_FOLDER"
     val_folder = "VAL_FOLDER"
-
-    if os.path.exists(train_folder):
-        os.rmdir(train_folder)
-
-    if os.path.exists(val_folder):
-        os.rmdir(val_folder)
 
     # Create TRAIN_FOLDER if it doesn't exist
     if not os.path.exists(train_folder):
@@ -34,11 +28,38 @@ def create_and_delete_folders():
         print(f"Created folder: {val_folder}")
     else:
         print(f"VAL_FOLDER already exists at: {val_folder}")
+        
+def clean_files():
+    # Function to delete files in TRAIN_FOLDER
+    for root, dirs, files in os.walk("TRAIN_FOLDER"):
+        for file in files:
+            file_path = os.path.join(root, file)  # Path to the current file
+            os.remove(file_path)  # Remove the file
+            print(f"Deleted: {file_path}")  # Output that the file is deleted
+            
+            #here same thing different name :)
+    for root, dirs, files in os.walk("VAL_FOLDER"):
+        for file in files:
+            file_path = os.path.join(root, file)  
+            os.remove(file_path)  
+            print(f"Deleted: {file_path}")  
 
+def iterate():
+    #test function to show images from folder, it works 
+    #task: crop images from examples and move them to train folder
+    for root, dirs, files in os.walk("examples"):
+            for file in files:
+                file_path = os.path.join(root, file)  
+                img = cv.imread(file_path)
+                img = cv.copyMakeBorder(img, 100, 100, 100, 100, cv.BORDER_REFLECT)
+                cv.imshow("image", img) 
+                cv.waitKey(0)
 
-create_and_delete_folders()
+#create_delete_folders()
+#clean_files()
 
-
+iterate()
+ 
 def crop(args):
     # TODO: Crop the full-frame images into individual crops
     #   Create the TRAIN_FOLDER and VAL_FOLDER is they are missing (os.mkdir)
