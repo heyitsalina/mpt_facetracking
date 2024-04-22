@@ -51,8 +51,9 @@ def record(args):
             print("An error while reading the frame has occurred.")
             break  # terminate the loop if the frame is not read successfully
 
-
-        #  # apply the function we created to the video frame
+        
+        # apply the function we created to the video frame
+        faces = detect_bounding_box(video_frame)
 
         cv.imshow(
             "our face detection project :)", video_frame
