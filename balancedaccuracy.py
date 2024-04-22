@@ -16,7 +16,7 @@ import torch
 class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
-        # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
+        # NOTE: It is good practice to all reset() from here to make sure everything is properly initialized
 
     def reset(self):
         # TODO: Reset internal states.
