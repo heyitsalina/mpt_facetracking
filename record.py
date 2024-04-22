@@ -35,4 +35,31 @@ def record(args):
 
     video_capture = cv.VideoCapture(0) # 0 ist die default kamera, parameter kann je nach kameraanzahl geändert werden
 
+    def detect_bounding_box(vid):
+        gray_image = cv.cvtColor(vid, cv.COLOR_BGR2GRAY)
+        faces = face_classifier.detectMultiScale(gray_image, 1.1, 5, minSize=(40, 40))
+        for (x, y, w, h) in faces:
+            cv.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
+        return faces
 
+
+    while True:
+
+        result, video_frame = video_capture.read()  # read frames from the video
+
+        if result is False:
+            print("An error while reading the frame has occurred.")
+            break  # terminate the loop if the frame is not read successfully
+
+
+        #  # apply the function we created to the video frame
+
+        cv.imshow(
+            "our face detection project :)", video_frame
+        )  # display the processed frame in a window named "our face detection project ･ᴗ･"
+
+        if cv.waitKey(1) & 0xFF == ord("q"):
+            break
+
+    video_capture.release()
+    cv.destroyAllWindows()

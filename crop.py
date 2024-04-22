@@ -58,7 +58,7 @@ def iterate():
 #create_delete_folders()
 #clean_files()
 
-iterate()
+#iterate()
  
 def crop(args):
     # TODO: Crop the full-frame images into individual crops
