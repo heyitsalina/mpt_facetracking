@@ -5,7 +5,7 @@ import gdown
 import uuid
 import csv
 from common import ROOT_FOLDER
-from cascade import create_cascade
+#from cascade import create_cascade
 
 # Quellen
 #  - How to open the webcam: https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html
@@ -17,7 +17,8 @@ from cascade import create_cascade
 
 # This is the data recording pipeline
 def record(args):
-    # TODO: Implement the recording stage of your pipeline
+    # TODO:
+    #   Implement the recording stage of your pipeline
     #   Create missing folders before you store data in them (os.mkdir)
     #   Open The OpenCV VideoCapture Device to retrieve live images from your webcam (cv.VideoCapture)
     #   Initialize the Haar feature cascade for face recognition from OpenCV (cv.CascadeClassifier)
@@ -28,3 +29,10 @@ def record(args):
     if args.folder is None:
         print("Please specify folder for data to be recorded into")
         exit()
+
+    face_classifier = cv.CascadeClassifier(
+    cv.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+    video_capture = cv.VideoCapture(0) # 0 ist die default kamera, parameter kann je nach kameraanzahl geändert werden
+
+
