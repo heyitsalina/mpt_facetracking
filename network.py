@@ -19,8 +19,8 @@ class Net(nn.Module):
         nn.Conv2d(32, 64, kernel_size=(5,5), padding="same"), relu,
         nn.Conv2d(64, 128, kernel_size=(5,5), padding="same"), relu, pool,
         nn.Conv2d(128, 256, kernel_size=(5,5), padding="same"), relu,
-        nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"),
-        nn.Flatten(), nn.Linear(placeholder, nClasses))
+        nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"), relu, pool,
+        nn.Flatten(), nn.Linear(262144, nClasses))
         
 
     def forward(self, x):
