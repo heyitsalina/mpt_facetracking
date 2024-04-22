@@ -17,7 +17,6 @@ class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
         # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
-        pass
 
     def reset(self):
         # TODO: Reset internal states.
