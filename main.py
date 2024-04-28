@@ -1,8 +1,8 @@
 import argparse
-from record import record
+#from record import record
 from crop import crop
-from train import train
-from live import live
+#from train import train
+#from live import live
 
 # NOTE: This is the main file, you propably don't need to change anything here
 
@@ -23,14 +23,14 @@ parser.add_argument("-e", "--epochs", action="store", default=30)
 args = parser.parse_args()
 
 # Switch control flow based on arguments
-if args.mode == "record":
-    record(args)
+# if args.mode == "record":
+#     record(args)
 
 if args.mode == "crop":
     crop(args)
 
-if args.mode == "train":
-    train(args)
+# if args.mode == "train":
+#     train(args)
 
-if args.mode == "live":
-    live(args)
+# if args.mode == "live":
+#     live(args)
