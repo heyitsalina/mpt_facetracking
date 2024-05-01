@@ -86,10 +86,14 @@ def crop(args):
                         if x1 < 0 or y1 < 0 or x2 >= img.shape[1] or y2 >= img.shape[0]:
                             print(f"Invalid crop coordinates: ({x1}, {y1}), ({x2}, {y2})")
                             continue
-
+                        
+                        args.border = float(args.border)
                         #calculate border
                         border_size_pixels = int(args.border * min(img.shape[:2]))
-
+                        # check if border size is too large
+                        if border_size_pixels >= min(img.shape[:2]):
+                            print("Border size is too large for the image dimensions")
+                            continue
                         # expand image with border
                         img_with_border = cv.copyMakeBorder(img, border_size_pixels, border_size_pixels,
                                                             border_size_pixels, border_size_pixels,
@@ -127,7 +131,7 @@ def crop(args):
         print("Cropping mode requires a border value to be set")
         exit()
 
-    args.border = float(args.border)
+    
     if args.border < 0 or args.border > 1:
         print("Border must be between 0 and 1")
         exit()
