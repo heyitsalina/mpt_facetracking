@@ -140,7 +140,6 @@ def crop(args):
 #crop(args)
 #create_delete_folders()
 #clean_files()
-
  
 #def crop(args):
     # TODO: Crop the full-frame images into individual crops
