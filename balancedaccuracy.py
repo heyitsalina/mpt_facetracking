@@ -12,13 +12,15 @@ import torch
 # Then, in the getBACC method, calculate the balanced accuracy by first calculating each individual accuracy
 # and then taking the average.
 
-# Balanced Accuracy
+#Balanced Accuracy
 class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
         # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
+
     
         def reset(self):
+
         # TODO: Reset internal states.
         # Called at the beginning of each epoch
             pass
