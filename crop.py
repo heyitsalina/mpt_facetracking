@@ -81,32 +81,37 @@ def crop(args):
                     for row in reader:
                         # read coordiantes
                         x1, y1, x2, y2 = map(int, row)
-                        
+                        xc = (x1 + x2) / 2
+                        yc  =(y1 + y2) /2
+                        wx = abs(x1 - x2) / 2
+                        wy = abs(y1 - y2) / 2
                         # check if coordinates are valid
-                        if x1 < 0 or y1 < 0 or x2 >= img.shape[1] or y2 >= img.shape[0]:
-                            print(f"Invalid crop coordinates: ({x1}, {y1}), ({x2}, {y2})")
-                            continue
+                        # if x1 < 0 or y1 < 0 or x2 >= img.shape[1] or y2 >= img.shape[0]:
+                        #     print(f"Invalid crop coordinates: ({x1}, {y1}), ({x2}, {y2})")
+                        #     continue
                         
                         args.border = float(args.border)
                         #calculate border
-                        border_size_pixels = int(args.border * min(img.shape[:2]))
+                        border_size_pixels_wx = int((1.0+args.border) * wx)
+                        border_size_pixels_wy = int((1.0+args.border) * wy)
+
                         # check if border size is too large
-                        if border_size_pixels >= min(img.shape[:2]):
-                            print("Border size is too large for the image dimensions")
-                            continue
-                        # expand image with border
-                        img_with_border = cv.copyMakeBorder(img, border_size_pixels, border_size_pixels,
-                                                            border_size_pixels, border_size_pixels,
-                                                            cv.BORDER_REFLECT)
+                        # if border_size_pixels >= min(img.shape[:2]):
+                        #     print("Border size is too large for the image dimensions")
+                        #     continue
+                        # # expand image with border
+                        img_with_border = cv.copyMakeBorder(img, border_size_pixels_wy, border_size_pixels_wy,
+                                                          border_size_pixels_wx, border_size_pixels_wx ,
+                                                          cv.BORDER_REFLECT)
                         
                         # new coordinates
-                        x1 += border_size_pixels
-                        y1 += border_size_pixels
-                        x2 += border_size_pixels
-                        y2 += border_size_pixels
+                        x1 = int(xc - border_size_pixels_wx)
+                        y1 = int(yc - border_size_pixels_wy)
+                        x2 = int(xc + border_size_pixels_wx)
+                        y2 = int(yc + border_size_pixels_wy)
                         
                         # crop image
-                        cropped_img = img_with_border[y1:y1+y2, x1:x1 + x2]
+                        cropped_img = img_with_border[y1:y2, x1:x2]
 
                         # Bild anzeigen
                         #cv.imshow("Cropped Image", cropped_img)
