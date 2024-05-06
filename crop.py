@@ -81,8 +81,10 @@ def crop(args):
                     for row in reader:
                         # read coordiantes
                         x1, y1, x2, y2 = map(int, row)
+                        # calculate center from x and y
                         xc = (x1 + x2) / 2
                         yc  =(y1 + y2) /2
+                        #calculate width 
                         wx = abs(x1 - x2) / 2
                         wy = abs(y1 - y2) / 2
                         # check if coordinates are valid
@@ -91,7 +93,7 @@ def crop(args):
                         #     continue
                         
                         args.border = float(args.border)
-                        #calculate border
+                        #calculate border for x and y 
                         border_size_pixels_wx = int((1.0+args.border) * wx)
                         border_size_pixels_wy = int((1.0+args.border) * wy)
 
@@ -104,7 +106,7 @@ def crop(args):
                                                           border_size_pixels_wx, border_size_pixels_wx ,
                                                           cv.BORDER_REFLECT)
                         
-                        # new coordinates
+                        # new coordinates with broder 
                         x1 = int(xc - border_size_pixels_wx)
                         y1 = int(yc - border_size_pixels_wy)
                         x2 = int(xc + border_size_pixels_wx)
