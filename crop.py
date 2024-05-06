@@ -59,7 +59,7 @@ def crop(args):
                 
                 # read image
                 img = cv.imread(image_path)
-                print(img)
+                #print(img)
                 
                 
                 #cv.imshow("Bildf", img)
@@ -68,7 +68,7 @@ def crop(args):
                 # save csv path
                 csv_file_path = os.path.join(folder_path, f"{os.path.splitext(image)[0]}.csv")
 
-                print(csv_file_path)
+                #print(csv_file_path)
 
 
                 # check if path exists
@@ -133,7 +133,7 @@ def crop(args):
 
                         # safe image
                         cv.imwrite(cropped_image_destination, cropped_img)
-                        print(f"Face cropped from {cropped_img} and saved to {cropped_image_destination}")
+                        print(f"Face cropped from {image} and saved to {cropped_image_destination}")
     if args.border is None:
         print("Cropping mode requires a border value to be set")
         exit()
