@@ -94,8 +94,8 @@ def crop(args):
                         
                         args.border = float(args.border)
                         #calculate border for x and y 
-                        border_size_pixels_wx = int((1.0+args.border) * wx)
-                        border_size_pixels_wy = int((1.0+args.border) * wy)
+                        border_size_pixels_wx = int((1.0+args.border) * wx) 
+                        border_size_pixels_wy = int((1.0+args.border) * wy) 
 
                         # check if border size is too large
                         # if border_size_pixels >= min(img.shape[:2]):
@@ -103,14 +103,14 @@ def crop(args):
                         #     continue
                         # # expand image with border
                         img_with_border = cv.copyMakeBorder(img, border_size_pixels_wy, border_size_pixels_wy,
-                                                          border_size_pixels_wx, border_size_pixels_wx ,
-                                                          cv.BORDER_REFLECT)
+                                                         border_size_pixels_wx, border_size_pixels_wx ,
+                                                        cv.BORDER_REFLECT)
                         
                         # new coordinates with broder 
-                        x1 = int(xc - border_size_pixels_wx)
-                        y1 = int(yc - border_size_pixels_wy)
-                        x2 = int(xc + border_size_pixels_wx)
-                        y2 = int(yc + border_size_pixels_wy)
+                        x1 = int(xc - (border_size_pixels_wx / 2))
+                        y1 = int(yc - (border_size_pixels_wy / 2))
+                        x2 = int(xc + (border_size_pixels_wx * 2)) 
+                        y2 = int(yc + (border_size_pixels_wy * 2)) 
                         
                         # crop image
                         cropped_img = img_with_border[y1:y2, x1:x2]
