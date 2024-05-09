@@ -1,10 +1,13 @@
 import argparse
-#from record import record
+
+# from record import record
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from crop import crop
-#from train import train
-#from live import live
+
+# from train import train
+# from live import live
 
 
 # NOTE: This is the main file, you propably don't need to change anything here
@@ -28,7 +31,7 @@ args = parser.parse_args()
 # Switch control flow based on arguments
 
 # if args.mode == "record":
-      #print("Setting up the recording process")
+# print("Setting up the recording process")
 #     record(args)
 
 

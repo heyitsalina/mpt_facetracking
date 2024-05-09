@@ -5,7 +5,8 @@ import gdown
 import uuid
 import csv
 from common import ROOT_FOLDER
-#from cascade import create_cascade
+
+# from cascade import create_cascade
 
 # Quellen
 #  - How to open the webcam: https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html
@@ -31,9 +32,12 @@ def record(args):
         exit()
 
     face_classifier = cv.CascadeClassifier(
-    cv.data.haarcascades + "haarcascade_frontalface_default.xml")
+        cv.data.haarcascades + "haarcascade_frontalface_default.xml"
+    )
 
-    video_capture = cv.VideoCapture(0) # 0 ist die default kamera, parameter kann je nach kameraanzahl geändert werden
+    video_capture = cv.VideoCapture(
+        0
+    )  # 0 ist die default kamera, parameter kann je nach kameraanzahl geändert werden
 
     def detect_bounding_box(vid):
         gray_image = cv.cvtColor(vid, cv.COLOR_BGR2GRAY)
@@ -41,7 +45,6 @@ def record(args):
         for (x, y, w, h) in faces:
             cv.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
         return faces
-
 
     while True:
 
@@ -51,7 +54,6 @@ def record(args):
             print("An error while reading the frame has occurred.")
             break  # terminate the loop if the frame is not read successfully
 
-        
         # apply the function we created to the video frame
         faces = detect_bounding_box(video_frame)
 
