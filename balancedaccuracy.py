@@ -23,10 +23,9 @@ class BalancedAccuracy:
         def reset(self):
         # TODO: Reset internal states.
         # Called at the beginning of each epoch
-            self.TP = torch.zeros(self.nClasses)
-            self.TN = torch.zeros(self.nClasses)
-            self.FP = torch.zeros(self.nClasses)
-            self.FN = torch.zeros(self.nClasses)
+            self.TP = torch.zeros(nClasses)
+            # self.TPR = torch.zeros(nClasses)
+            self.FN = torch.zeros(nClasses)
 
     def update(self, predictions, groundtruth):
         # TODO: Implement the update of internal states
@@ -38,16 +37,24 @@ class BalancedAccuracy:
         #
         # Groundtruth is a BATCH_SIZE x 1 long Tensor. It contains the index of the
         # ground truth class.
-        _, predicted_classes = torch.max(predictions, 1)
+        
+        # Extract the models predictions for each class
+        model_predictions = torch.argmax(predictions, dim=0)
+        
+        # Get the True Positives and False Negatives
         for i in range(self.nClasses):
-            self.TP[i] += predicted_classes[i]
+            self.TP[i] += ((model_predictions == i) and (groundtruth == i)).sum()
+            self.FN[i] += ((model_predictions != i) and (groundtruth == i)).sum()
+            
+            
 
     def getBACC(self):
         # TODO: Calculcate and return balanced accuracy 
         # based on current internal state
         
-        sensitivity = TP/(TP+FN)
-        specificity = TN/(TN+FP)
-        bacc = (sensitivity+specificity)/2
+        # Calculate a tensor of TPR for each class
+        TPR = self.TP / (self.TP + self.FN)
+        # Take the mean of the TPRs as the balanced accuracy of the predictions
+        bacc = torch.mean(TPR)
         
         return bacc
