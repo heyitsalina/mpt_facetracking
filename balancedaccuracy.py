@@ -4,7 +4,7 @@ import torch
 # The balanced accuracy is defined as the average accuracy for each class.
 # The accuracy for an indiviual class is the ratio between correctly classified example to all examples of that class.
 # The code in train.py will instantiate one instance of this class.
-# It will call the reset methos at the beginning of each epoch. Use this to reset your
+# It will call the reset method at the beginning of each epoch. Use this to reset your
 # internal states. The update method will be called multiple times during an epoch, once for each batch of the training.
 # You will receive the network predictions, a Tensor of Size (BATCHSIZExCLASSES) containing the logits (output without Softmax).
 # You will also receive the groundtruth, an integer (long) Tensor with the respective class index per example.
@@ -17,12 +17,16 @@ class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
         # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
-
+        new_network
+        self.nClasses = nClasses
+        self.reset()
+    
         def reset(self):
-
-            # TODO: Reset internal states.
-            # Called at the beginning of each epoch
-            pass
+        # TODO: Reset internal states.
+        # Called at the beginning of each epoch
+            self.TP = torch.zeros(nClasses)
+            # self.TPR = torch.zeros(nClasses)
+            self.FN = torch.zeros(nClasses)
 
     def update(self, predictions, groundtruth):
         # TODO: Implement the update of internal states
@@ -34,9 +38,25 @@ class BalancedAccuracy:
         #
         # Groundtruth is a BATCH_SIZE x 1 long Tensor. It contains the index of the
         # ground truth class.
-        pass
+        
+        # Extract the models predictions for each class
+        model_predictions = torch.argmax(predictions, dim=0)
+        
+        # Get the True Positives and False Negatives
+        for i in range(self.nClasses):
+            self.TP[i] += ((model_predictions == i) and (groundtruth == i)).sum()
+            self.FN[i] += ((model_predictions != i) and (groundtruth == i)).sum()
+            
+            
 
     def getBACC(self):
         # TODO: Calculcate and return balanced accuracy
         # based on current internal state
-        pass
+        new_network
+        
+        # Calculate a tensor of TPR for each class
+        TPR = self.TP / (self.TP + self.FN)
+        # Take the mean of the TPRs as the balanced accuracy of the predictions
+        bacc = torch.mean(TPR)
+        
+        return bacc
