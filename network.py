@@ -1,7 +1,8 @@
 import torch
 from torch import nn
 
-# NOTE: This will be the network architecture. 
+# NOTE: This will be the network architecture.
+
 
 class Net(nn.Module):
     def __init__(self, nClasses):
@@ -11,6 +12,7 @@ class Net(nn.Module):
         # Define network architecture as needed
         # Input imags will be 3 channels 256x256 pixels.
         # Output must be a nClasses Tensor.
+        new_network
         
         relu = nn.ReLU()
         pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))
@@ -23,10 +25,10 @@ class Net(nn.Module):
         nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"), relu, pool,
         nn.Flatten(), nn.Linear(262144, nClasses))
         
-        
+ 
 
     def forward(self, x):
-        # TODO: 
+        # TODO:
         # Implement forward pass
         # x is a BATCH_SIZEx3x256x256 Tensor
         # return value must be a BATCH_SIZExN_CLASSES Tensor

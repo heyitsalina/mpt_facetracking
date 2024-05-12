@@ -1,7 +1,7 @@
 import torch
 
 # NOTE: This will be the calculation of balanced accuracy for your classification task
-# The balanced accuracy is defined as the average accuracy for each class. 
+# The balanced accuracy is defined as the average accuracy for each class.
 # The accuracy for an indiviual class is the ratio between correctly classified example to all examples of that class.
 # The code in train.py will instantiate one instance of this class.
 # It will call the reset method at the beginning of each epoch. Use this to reset your
@@ -12,11 +12,12 @@ import torch
 # Then, in the getBACC method, calculate the balanced accuracy by first calculating each individual accuracy
 # and then taking the average.
 
-#Balanced Accuracy
+# Balanced Accuracy
 class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
         # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
+        new_network
         self.nClasses = nClasses
         self.reset()
     
@@ -49,8 +50,9 @@ class BalancedAccuracy:
             
 
     def getBACC(self):
-        # TODO: Calculcate and return balanced accuracy 
+        # TODO: Calculcate and return balanced accuracy
         # based on current internal state
+        new_network
         
         # Calculate a tensor of TPR for each class
         TPR = self.TP / (self.TP + self.FN)
