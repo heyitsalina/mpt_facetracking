@@ -128,8 +128,12 @@ def crop(args):
                         # Bild anzeigen
                         # cv.imshow("Cropped Image", cropped_img)
                         # cv.waitKey(0)
+                        
+                        # Convert args.split to float
+                        split_value = float(args.split)
+
                         # random split into train and val folder
-                        if random.uniform(0.0, 1.0) < args.split:
+                        if random.uniform(0.0, 1.0) < split_value:
                             destination_folder = os.path.join(VAL_FOLDER)
                         else:
                             destination_folder = os.path.join(TRAIN_FOLDER)
