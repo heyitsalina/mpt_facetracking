@@ -58,12 +58,6 @@ def record(args):
             cv.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
         return faces
 
-    # Initialize CSV writer
-    csv_file_path = os.path.join(target_folder, "face_coordinates.csv")
-    with open(csv_file_path, mode='w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(['Image', 'Face Coordinates'])
-
     frame_count = 0
     save_blocked = False
 
@@ -85,14 +79,17 @@ def record(args):
             break
 
         if len(faces) == 1 and not save_blocked:
-            # Save the image and create an uuid 
+            # Save the image and create a uuid 
             image_filename = os.path.join(target_folder, f"{uuid.uuid4()}.jpg")
             cv.imwrite(image_filename, video_frame)
 
             # Write face position to CSV file
-            with open(csv_file_path, mode='a', newline='') as csvfile:
+            csv_file_path = os.path.splitext(image_filename)[0] + ".csv"
+            with open(csv_file_path, mode='w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
-                csv_writer.writerow([image_filename, faces[0]])
+                #csv_writer.writerow(['Face Coordinates'])
+                for face in faces:
+                    csv_writer.writerow(face)
 
             # Block saving for 30 consecutive frames
             save_blocked = True
