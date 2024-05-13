@@ -1,6 +1,4 @@
 import argparse
-
-# from record import record
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -29,7 +27,6 @@ parser.add_argument("-e", "--epochs", action="store", default=30)
 args = parser.parse_args()
 
 # Switch control flow based on arguments
-
 if args.mode == "record":
     print("Setting up the recording process")
     record(args)

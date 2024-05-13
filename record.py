@@ -87,7 +87,6 @@ def record(args):
             csv_file_path = os.path.splitext(image_filename)[0] + ".csv"
             with open(csv_file_path, mode='w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
-                #csv_writer.writerow(['Face Coordinates'])
                 for face in faces:
                     csv_writer.writerow(face)
 
