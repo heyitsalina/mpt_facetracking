@@ -88,7 +88,9 @@ def record(args):
             with open(csv_file_path, mode='w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
                 for face in faces:
-                    csv_writer.writerow(face)
+                    x, y, w, h = face
+                    x2, y2 = x + w, y + h
+                    csv_writer.writerow([x, y, x2, y2])
 
             # Block saving for 30 consecutive frames
             save_blocked = True
