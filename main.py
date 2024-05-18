@@ -1,11 +1,17 @@
 import argparse
+<<<<<<< HEAD
 
 from record import record
+=======
+>>>>>>> master
 import os
-
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-from crop import crop
 
+<<<<<<< HEAD
+=======
+from record import record
+from crop import crop
+>>>>>>> master
 from train import train
 from live import live
 
@@ -29,17 +35,30 @@ parser.add_argument("-e", "--epochs", action="store", default=30)
 args = parser.parse_args()
 
 # Switch control flow based on arguments
+<<<<<<< HEAD
 
 if args.mode == "record":
     print("Setting up the recording process")
     record(args)
 
+=======
+if args.mode == "record":
+    print("Setting up the recording process")
+    record(args)
+>>>>>>> master
 
 if args.mode == "crop":
     crop(args)
 
 if args.mode == "train":
+<<<<<<< HEAD
     train(args)
 
 if args.mode == "live":
     live(args)
+=======
+     train(args)
+
+if args.mode == "live":
+     live(args)
+>>>>>>> master
