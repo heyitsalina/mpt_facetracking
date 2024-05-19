@@ -17,16 +17,14 @@ class BalancedAccuracy:
     def __init__(self, nClasses):
         # TODO: Setup internal variables
         # NOTE: It is good practive to all reset() from here to make sure everything is properly initialized
-        new_network
         self.nClasses = nClasses
         self.reset()
     
-        def reset(self):
+    def reset(self):
         # TODO: Reset internal states.
         # Called at the beginning of each epoch
-            self.TP = torch.zeros(nClasses)
-            # self.TPR = torch.zeros(nClasses)
-            self.FN = torch.zeros(nClasses)
+        self.correct_predictions = torch.zeros(self.nClasses)
+        self.total = torch.zeros(self.nClasses)
 
     def update(self, predictions, groundtruth):
         # TODO: Implement the update of internal states
@@ -40,23 +38,23 @@ class BalancedAccuracy:
         # ground truth class.
         
         # Extract the models predictions for each class
-        model_predictions = torch.argmax(predictions, dim=0)
+        _, model_predictions = torch.max(predictions, 1)
         
-        # Get the True Positives and False Negatives
+        # Get the True Negatives and True Positives as well as the total number of datapoints to be predicted
         for i in range(self.nClasses):
-            self.TP[i] += ((model_predictions == i) and (groundtruth == i)).sum()
-            self.FN[i] += ((model_predictions != i) and (groundtruth == i)).sum()
+            self.correct_predictions[i] += (model_predictions[groundtruth == i] == groundtruth[groundtruth == i]).sum()
+            self.total[i] += (groundtruth == i).sum()
+
             
             
 
     def getBACC(self):
         # TODO: Calculcate and return balanced accuracy
         # based on current internal state
-        new_network
         
-        # Calculate a tensor of TPR for each class
-        TPR = self.TP / (self.TP + self.FN)
-        # Take the mean of the TPRs as the balanced accuracy of the predictions
-        bacc = torch.mean(TPR)
+        # Calculate accuracy for each included class
+        accuracies = self.correct_predictions/self.total
+        # Take the mean of the accuracies per class as the balanced accuracy of the predictions
+        bacc = torch.mean(accuracies)
         
         return bacc
