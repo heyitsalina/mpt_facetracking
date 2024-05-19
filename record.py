@@ -63,6 +63,7 @@ def record(args):
 
     while True:
         result, video_frame = video_capture.read()
+        # to save raw image
         new_vid = video_frame.copy()
         if result is False:
             print("An error occurred while reading the frame.")
