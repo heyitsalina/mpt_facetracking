@@ -28,7 +28,7 @@ class Net(nn.Module):
         nn.Conv2d(128, 256, kernel_size=(5,5), padding="same"), relu,
         nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"), relu, pool,
         nn.Flatten(),
-        nn.Linear(262144, nClasses)
+        nn.Linear(524288, nClasses)
         )
 
         
