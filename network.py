@@ -12,6 +12,9 @@ class Net(nn.Module):
         # Define network architecture as needed
         # Input imags will be 3 channels 256x256 pixels.
         # Output must be a nClasses Tensor.
+
+        # new_network
+
         
         # relu activation function and max pooling 
         relu = nn.ReLU()
@@ -27,6 +30,7 @@ class Net(nn.Module):
         nn.Flatten(),
         nn.Linear(262144, nClasses)
         )
+
         
  
 
