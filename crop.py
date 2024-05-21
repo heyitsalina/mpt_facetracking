@@ -135,9 +135,9 @@ def crop(args):
 
                         # random split into train and val folder
                         if random.uniform(0.0, 1.0) < split_value:
-                            destination_folder = os.path.join(VAL_FOLDER)
+                            destination_folder = os.path.join(VAL_FOLDER, folder_name)
                         else:
-                            destination_folder = os.path.join(TRAIN_FOLDER)
+                            destination_folder = os.path.join(TRAIN_FOLDER, folder_name)
 
                         # check if destination folder exists
                         if not os.path.exists(destination_folder):
