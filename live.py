@@ -34,8 +34,6 @@ def live(args):
         print("Border must be between 0 and 1")
         exit()
 
-
-def live(args):
     # Initialisiere Webcam
     cap = cv.VideoCapture(0)
     if not cap.isOpened():
