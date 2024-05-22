@@ -63,7 +63,8 @@ def record(args):
 
     while True:
         result, video_frame = video_capture.read()
-
+        # to save raw image
+        new_vid = video_frame.copy()
         if result is False:
             print("An error occurred while reading the frame.")
             break
@@ -81,7 +82,7 @@ def record(args):
         if len(faces) == 1 and not save_blocked:
             # Save the image and create a uuid 
             image_filename = os.path.join(target_folder, f"{uuid.uuid4()}.jpg")
-            cv.imwrite(image_filename, video_frame)
+            cv.imwrite(image_filename, new_vid)
 
             # Write face position to CSV file
             csv_file_path = os.path.splitext(image_filename)[0] + ".csv"
@@ -89,8 +90,8 @@ def record(args):
                 csv_writer = csv.writer(csvfile)
                 for face in faces:
                     x, y, w, h = face
-                    x2, y2 = x + w, y + h
-                    csv_writer.writerow([x, y, x2, y2])
+                    #x2, y2 = x + w, y + h
+                    csv_writer.writerow([x, y, w, h])
 
             # Block saving for 30 consecutive frames
             save_blocked = True

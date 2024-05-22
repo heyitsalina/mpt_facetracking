@@ -12,10 +12,14 @@ class Net(nn.Module):
         # Define network architecture as needed
         # Input imags will be 3 channels 256x256 pixels.
         # Output must be a nClasses Tensor.
-        new_network
+
+        # new_network
+
         
+        # relu activation function and max pooling 
         relu = nn.ReLU()
         pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))
+        # define the network architecture
         self.net = nn.Sequential(
         nn.Conv2d(3, 16, kernel_size=(5,5), padding="same"), relu,
         nn.Conv2d(16, 32, kernel_size=(5,5), padding="same"), relu, pool,
@@ -23,7 +27,10 @@ class Net(nn.Module):
         nn.Conv2d(64, 128, kernel_size=(5,5), padding="same"), relu, pool,
         nn.Conv2d(128, 256, kernel_size=(5,5), padding="same"), relu,
         nn.Conv2d(256, 512, kernel_size=(5,5), padding="same"), relu, pool,
-        nn.Flatten(), nn.Linear(262144, nClasses))
+        nn.Flatten(),
+        nn.Linear(524288, nClasses)
+        )
+
         
  
 

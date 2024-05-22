@@ -85,13 +85,14 @@ def crop(args):
                     reader = csv.reader(csvfile)
                     for row in reader:
                         # read coordiantes
-                        x1, y1, x2, y2 = map(int, row)
+                        x, y, w, h = map(int, row)
+                        x2, y2  = x + w, y + h
                         # calculate center from x and y
-                        xc = (x1 + x2) / 2
-                        yc = (y1 + y2) / 2
+                        xc = (x + x2) / 2
+                        yc = (y + y2) / 2
                         # calculate width
-                        wx = abs(x1 - x2) / 2
-                        wy = abs(y1 - y2) / 2
+                        wx = abs(x - x2) / 2
+                        wy = abs(y - y2) / 2
                         # check if coordinates are valid
                         # if x1 < 0 or y1 < 0 or x2 >= img.shape[1] or y2 >= img.shape[0]:
                         #     print(f"Invalid crop coordinates: ({x1}, {y1}), ({x2}, {y2})")
@@ -134,9 +135,9 @@ def crop(args):
 
                         # random split into train and val folder
                         if random.uniform(0.0, 1.0) < split_value:
-                            destination_folder = os.path.join(VAL_FOLDER)
+                            destination_folder = os.path.join(VAL_FOLDER, folder_name)
                         else:
-                            destination_folder = os.path.join(TRAIN_FOLDER)
+                            destination_folder = os.path.join(TRAIN_FOLDER, folder_name)
 
                         # check if destination folder exists
                         if not os.path.exists(destination_folder):
