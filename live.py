@@ -19,10 +19,7 @@ def live(args):
     #   Run the cascade on each image, crop all faces with border.
     #   Run each cropped face through the network to get a class prediction.
     #   Retrieve the predicted persons name from the checkpoint and display it in the image
-    face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_default.xml")
-    #load model
-    checkpoint = torch.load("model.pt", map_location=torch.device("cpu"))
-    
+
     
     
     if args.border is None:
@@ -44,13 +41,13 @@ def live(args):
     face_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
     
     # Lade Modell und Checkpoint
-    model = Net()
-    checkpoint = torch.laod('model.pth')
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model = Net(nClasses=5)
+    checkpoint = torch.load('model.pt')
+    model.load_state_dict(checkpoint['model'])
     model.eval()
 
     # Initialisiere Transformationen
-    transform = ValidationTransform()
+    transform = ValidationTransform
 
     while True:
         # Erfasse Frame
