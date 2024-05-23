@@ -24,18 +24,21 @@ def live(args):
     # Lade Haar-Wavelet-Kaskade
     face_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
     
-    # Lade Modell und Checkpoint
-    model = Net(nClasses=5)
     checkpoint = torch.load('model.pt')
-    model.load_state_dict(checkpoint['model'])
-    model.eval()
-
-    # Lade Klassen-Namen aus dem Checkpoint
+    
+        # Lade Klassen-Namen aus dem Checkpoint
     if 'classes' in checkpoint:
         class_names = checkpoint['classes']
     else:
         print("Error: 'classes' not found in checkpoint.")
         return
+    
+    # Lade Modell und Checkpoint
+    nClasses = len(class_names)
+    model = Net(nClasses=nClasses)
+    model.load_state_dict(checkpoint['model'])
+    model.eval()
+
 
     # Initialisiere Transformationen
     transform = ValidationTransform
