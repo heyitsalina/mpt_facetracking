@@ -2,26 +2,10 @@ import cv2 as cv
 import torch
 import os
 from network import Net
-
-# from cascade import create_cascade
 from transforms import ValidationTransform
 from PIL import Image
 
-# NOTE: This will be the live execution of your pipeline
-
-
 def live(args):
-    # TODO:
-    #   Load the model checkpoint from a previous training session (check code in train.py)
-    #   Initialize the face recognition cascade again (reuse code if possible)
-    #   Also, create a video capture device to retrieve live footage from the webcam.
-    #   Attach border to the whole video frame for later cropping.
-    #   Run the cascade on each image, crop all faces with border.
-    #   Run each cropped face through the network to get a class prediction.
-    #   Retrieve the predicted persons name from the checkpoint and display it in the image
-
-    
-    
     if args.border is None:
         print("Live mode requires a border value to be set")
         exit()
@@ -46,6 +30,13 @@ def live(args):
     model.load_state_dict(checkpoint['model'])
     model.eval()
 
+    # Lade Klassen-Namen aus dem Checkpoint
+    if 'classes' in checkpoint:
+        class_names = checkpoint['classes']
+    else:
+        print("Error: 'classes' not found in checkpoint.")
+        return
+
     # Initialisiere Transformationen
     transform = ValidationTransform
 
@@ -68,7 +59,7 @@ def live(args):
             wx = abs(x - x2) / 2
             wy = abs(y - y2) / 2
 
-            args.border = float(args.border)  # Beispielwert, anpassen falls nötig
+            args.border = float(args.border)
             border_size_pixels_wx = int((1.0 + args.border) * wx)
             border_size_pixels_wy = int((1.0 + args.border) * wy)
 
@@ -81,10 +72,10 @@ def live(args):
                 cv.BORDER_REFLECT,
             )
 
-            x1 = int(xc - (border_size_pixels_wx / 2))
-            y1 = int(yc - (border_size_pixels_wy / 2))
-            x2 = int(xc + (border_size_pixels_wx * 2))
-            y2 = int(yc + (border_size_pixels_wy * 2))
+            x1 = int(xc - border_size_pixels_wx)
+            y1 = int(yc - border_size_pixels_wy)
+            x2 = int(xc + border_size_pixels_wx)
+            y2 = int(yc + border_size_pixels_wy)
 
             # Zuschneiden des Bildes
             cropped_img = img_with_border[y1:y2, x1:x2]
@@ -102,8 +93,9 @@ def live(args):
                 label = predicted.item()
 
             # Zeichne Rechteck und Namen
-            cv.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
-            cv.putText(frame, str(label), (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
+            name = class_names[label]
+            cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv.putText(frame, name, (x, y - 10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
 
         # Zeige das Ergebnis
         cv.imshow('Live', frame)
