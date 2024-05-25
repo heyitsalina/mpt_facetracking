@@ -1,6 +1,7 @@
 import argparse
 
 import os
+
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from record import record
 from crop import crop
@@ -38,8 +39,7 @@ if args.mode == "crop":
     crop(args)
 
 if args.mode == "train":
-     train(args)
+    train(args)
 
 if args.mode == "live":
-     live(args)
-
+    live(args)
