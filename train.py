@@ -9,9 +9,6 @@ from balancedaccuracy import BalancedAccuracy
 from network import Net
 from transforms import TrainingTransform, ValidationTransform
 
-# NOTE: You do not need to change this file
-# Make sure your other code works around this
-
 BATCH_SIZE = 2
 
 
