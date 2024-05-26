@@ -74,6 +74,10 @@ def live(args):
             args.border = float(args.border)
             border_size_pixels_wx = int((1.0 + args.border) * wx)
             border_size_pixels_wy = int((1.0 + args.border) * wy)
+            
+            # Ensure the border size is within the frame dimensions
+            border_size_pixels_wx = min(border_size_pixels_wx, frame.shape[1] // 2)
+            border_size_pixels_wy = min(border_size_pixels_wy, frame.shape[0] // 2)
 
             # Expand the image with the border
             img_with_border = cv.copyMakeBorder(
@@ -90,6 +94,12 @@ def live(args):
             y1 = int(yc - border_size_pixels_wy)
             x2 = int(xc + border_size_pixels_wx)
             y2 = int(yc + border_size_pixels_wy)
+            
+            # Ensure the coordinates are within the img_with_border dimensions
+            if x1 < 0: x1 = 0
+            if y1 < 0: y1 = 0
+            if x2 > img_with_border.shape[1]: x2 = img_with_border.shape[1]
+            if y2 > img_with_border.shape[0]: y2 = img_with_border.shape[0]            
 
             # Crop the face from the image with the border
             cropped_img = img_with_border[y1:y2, x1:x2]
